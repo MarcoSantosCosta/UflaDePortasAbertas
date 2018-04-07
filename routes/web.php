@@ -50,13 +50,13 @@ Route::group(['prefix' => 'API'], function () {
 //    });
 //
 //
-//    Route::group(['prefix' => 'cards'], function () {
-//        Route::get('', ['uses' => 'TODO']);
-//        Route::get('{id}', ['uses' => 'TODO']);
-//        Route::post('', ['uses' => 'TODO']);
-//        Route::put('{id}', ['uses' => 'TODO']);
-//        Route::delete('{id}', ['uses' => 'TODO']);
-//    });
+    Route::group(['prefix' => 'cards'], function () {
+        Route::get('', ['uses' => 'CardsController@getAll']);
+        Route::get('{id}', ['uses' => 'CardsController@get']);
+        Route::post('', ['uses' => 'CardsController@add']);
+        Route::put('{id}', ['uses' => 'CardsController@set']);
+        Route::delete('{id}', ['uses' => 'CardsController@remove']);
+    });
 //
 //    Route::group(['prefix' => 'util'], function () {
 //        Route::get('', ['uses' => 'TODO']);
