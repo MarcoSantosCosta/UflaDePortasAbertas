@@ -6,6 +6,7 @@ use App\Models\Courses;
 use App\Models\Info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Validation\Rules\In;
 
 class CoursesController extends Controller
 {
@@ -35,7 +36,8 @@ class CoursesController extends Controller
         return response('not found', 400);
     }
 
-    public function getActivities($id){
+    public function getActivities($id)
+    {
         $response = $this->instance->getActivities($id);
         if ($response) {
             return response($response, 200);
@@ -46,12 +48,11 @@ class CoursesController extends Controller
     public function add()
     {
 
-
         $input = Input::all();
         $info = new Info();
         $info->fill($input);
         $reponse = $info->add();
-        if ($reponse) {
+        if ($reponse instanceof Info) {
             $this->instance->fill($input);
             $this->instance->info_id = $reponse->id;
             $reponse = $this->instance->add();
@@ -65,20 +66,24 @@ class CoursesController extends Controller
 
     public function set($id)
     {
-
-
-        // 'TODO' Alterar informações
-          
         $input = Input::all();
         $this->instance->fill($input);
         $reponse = $this->instance->set($id);
         if ($reponse) {
-            return response($reponse, 200);
+            $course = $reponse;
+            $info = new Info();
+            $info->fill($input);
+            $reponse = $info->set($course->info_id);
+            if ($reponse) {
+                $course->info = $reponse;
+                return response($course, 200);
+            }
+            return response($reponse, 400);
         }
-        return response($reponse, 400);
     }
 
-    public function remove($id)
+    public
+    function remove($id)
     {
         $reponse = $this->instance->remove($id);
         if ($reponse) {
