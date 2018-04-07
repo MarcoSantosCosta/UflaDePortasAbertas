@@ -18,9 +18,11 @@ class CreateCoursesTable extends Migration
             $table->text('descricao');
             $table->string('nome',155);
             $table->string('url_imagem',255);
-
-
             $table->unsignedInteger('info_id');
+            $table->foreign('info_id')->reference('id')->from('infos');
+
+
+
 
             $table->timestamps();
         });

@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Mockery\Exception;
 
-class Courses extends Model
+class Info extends Model
 {
-    protected $fillable = ['descricao','nome','url_imagem'];
 
-
+    protected $fillable = ['grau','titulo','modalidade','regime','turno','duracao','vagas'];
     public function add()
     {
         try{
@@ -26,8 +25,7 @@ class Courses extends Model
     public function get($id)
     {
         $data = self::find($id);
-        if ($data instanceof Courses) {
-            $data->info;
+        if ($data instanceof Info) {
             return $data;
         }
         return false;
@@ -67,9 +65,5 @@ class Courses extends Model
             return $aux->delete();
         }
         return false;
-    }
-
-    public  function info(){
-        return $this->hasOne(Info::class,'id','info_id');
     }
 }

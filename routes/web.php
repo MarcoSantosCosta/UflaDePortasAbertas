@@ -26,7 +26,19 @@ Route::group(['prefix' => 'API'], function () {
         Route::delete('{id}', ['uses' => 'CoursesController@remove']);
         // /API/courses
     });
-//    // /API
+
+
+    Route::group(['prefix' => 'infos'], function () {
+        Route::get('', ['uses' => 'InfoController@getAll']);
+        Route::get('{id}', ['uses' => 'InfoController@get']);
+        Route::get('{id}/activities', ['uses' => 'InfoController@getActivities']);
+        Route::post('', ['uses' => 'InfoController@add']);
+        Route::put('{id}', ['uses' => 'InfoController@set']);
+        Route::delete('{id}', ['uses' => 'InfoController@remove']);
+        // /API/courses
+    });
+
+//    //API
 //    Route::group(['prefix' => 'activities'], function () {
 //
 //        // /API/activites
