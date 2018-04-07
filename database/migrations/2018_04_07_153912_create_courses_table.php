@@ -19,7 +19,7 @@ class CreateCoursesTable extends Migration
             $table->string('nome',155);
             $table->string('url_imagem',255);
             $table->unsignedInteger('info_id');
-            $table->foreign('info_id')->reference('id')->from('infos');
+            $table->foreign('info_id')->references('id')->from('infos');
 
 
 
