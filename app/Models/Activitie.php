@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Mockery\Exception;
 
-class Courses extends Model
+class Activitie extends Model
 {
-    protected $fillable = ['descricao', 'nome', 'url_imagem'];
 
-
+    protected $fillable = ['titulo','descricao','inicio','fim','info','curso_id'];
     public function add()
     {
         try {
+            $this->inicio = date("Y-m-d h:i", strtotime($this->data));
+            $this->fim = date("Y-m-d h:i", strtotime($this->data));
             $this->save();
         } catch (QueryException $ex) {
             return $ex->errorInfo;
@@ -26,8 +27,7 @@ class Courses extends Model
     public function get($id)
     {
         $data = self::find($id);
-        if ($data instanceof Courses) {
-            $data->info;
+        if ($data instanceof Activitie) {
             return $data;
         }
         return false;
@@ -48,6 +48,8 @@ class Courses extends Model
         if (!is_null($aux)) {
             $aux->fill($this->attributes);
             try {
+                $this->inicio = date("Y-m-d h:i", strtotime($this->data));
+                $this->fim = date("Y-m-d h:i", strtotime($this->data));
                 $aux->save();
             } catch (QueryException $ex) {
                 return $ex->errorInfo;
@@ -68,25 +70,4 @@ class Courses extends Model
         }
         return false;
     }
-
-    public function getActivities($id)
-    {
-        $data = self::find($id);
-        if ($data instanceof Courses) {
-           return $data->activities;
-        }
-        return false;
-    }
-
-    public function info()
-    {
-        return $this->hasOne(Info::class, 'id', 'info_id');
-    }
-
-    public function activities()
-    {
-        return $this->hasMany(Activitie::class, 'curso_id', 'id');
-    }
-
-
 }

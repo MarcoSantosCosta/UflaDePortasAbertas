@@ -15,12 +15,10 @@
 
 Route::group(['prefix' => 'API'], function () {
 
-
-//
     Route::group(['prefix' => 'courses'], function () {
         Route::get('', ['uses' => 'CoursesController@getAll']);
-        Route::get('{id}', ['uses' => 'CoursesController@get']);
         Route::get('{id}/activities', ['uses' => 'CoursesController@getActivities']);
+        Route::get('{id}', ['uses' => 'CoursesController@get']);
         Route::post('', ['uses' => 'CoursesController@add']);
         Route::put('{id}', ['uses' => 'CoursesController@set']);
         Route::delete('{id}', ['uses' => 'CoursesController@remove']);
@@ -35,21 +33,18 @@ Route::group(['prefix' => 'API'], function () {
         Route::post('', ['uses' => 'InfoController@add']);
         Route::put('{id}', ['uses' => 'InfoController@set']);
         Route::delete('{id}', ['uses' => 'InfoController@remove']);
-        // /API/courses
     });
 
-//    //API
-//    Route::group(['prefix' => 'activities'], function () {
-//
-//        // /API/activites
-//        Route::get('', ['uses' => 'TODO']);
-//        Route::get('{id}', ['uses' => 'TODO']);
-//        Route::post('', ['uses' => 'TODO']);
-//        Route::put('{id}', ['uses' => 'TODO']);
-//        Route::delete('{id}', ['uses' => 'TODO']);
-//    });
-//
-//
+
+    Route::group(['prefix' => 'activities'], function () {
+        Route::get('', ['uses' => 'ActivitiesController@getAll']);
+        Route::get('{id}', ['uses' => 'ActivitiesController@get']);
+        Route::post('', ['uses' => 'ActivitiesController@add']);
+        Route::put('{id}', ['uses' => 'ActivitiesController@set']);
+        Route::delete('{id}', ['uses' => 'ActivitiesController@remove']);
+    });
+
+
     Route::group(['prefix' => 'cards'], function () {
         Route::get('', ['uses' => 'CardsController@getAll']);
         Route::get('{id}', ['uses' => 'CardsController@get']);
@@ -57,7 +52,7 @@ Route::group(['prefix' => 'API'], function () {
         Route::put('{id}', ['uses' => 'CardsController@set']);
         Route::delete('{id}', ['uses' => 'CardsController@remove']);
     });
-//
+
 //    Route::group(['prefix' => 'util'], function () {
 //        Route::get('', ['uses' => 'TODO']);
 //        Route::get('{id}', ['uses' => 'TODO']);
